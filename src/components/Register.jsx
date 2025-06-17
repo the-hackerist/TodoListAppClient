@@ -13,6 +13,7 @@ function Register() {
   const [error, setError] = useState(null);
   const [clientError, setClientError] = useState(null);
   const [isNotMatch, setIsNotMatch] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [{ email, password, confirmPassword }, setRegisterDetails] = useState({
     email: "",
     password: "",
@@ -48,6 +49,8 @@ function Register() {
         return;
       }
 
+      setLoading(true);
+
       const user = await fetch(`${API_ROOT_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -55,6 +58,8 @@ function Register() {
       });
 
       const result = await user.json();
+
+      setLoading(false);
 
       if (!result.isSuccess) {
         setError({ message: result.message, errors: result.errors });
@@ -150,8 +155,11 @@ function Register() {
             placeholder="confirm password..."
           />
         </div>
-        <button className="mt-4 cursor-pointer border-y-1 border-blue-500 py-2 text-sm font-bold text-blue-500 uppercase transition hover:rounded-md hover:bg-blue-500 hover:text-white">
-          Register
+        <button
+          className={`mt-4 py-2 text-sm font-bold uppercase transition ${!loading ? "cursor-pointer border-y-1 border-blue-500 text-blue-500 hover:rounded-md hover:bg-blue-500 hover:text-white" : "cursor-not-allowed rounded-md bg-gray-500 text-white"}`}
+          disabled={loading}
+        >
+          {loading ? "Registering..." : "Register"}
         </button>
         <div className="flex flex-col gap-2 pt-4 text-sm">
           <Link to="/auth/login">Already have an account?</Link>

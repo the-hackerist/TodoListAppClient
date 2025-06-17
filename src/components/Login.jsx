@@ -5,7 +5,6 @@ import validator from "validator";
 
 import { useAuth } from "../contexts/AuthContext";
 import { toastOptions, API_ROOT_URL } from "../helper/constants";
-import Loader from "./Loader";
 
 const ONE_HOUR = 3_600_000;
 
@@ -129,7 +128,7 @@ function Login() {
           />
         </div>
         <button
-          className={`mt-4 border-y-1 py-2 text-sm font-bold uppercase transition ${!loading ? "cursor-pointer border-blue-500 text-blue-500 hover:rounded-md hover:bg-blue-500 hover:text-white" : "rounded-md border-gray-400 bg-gray-400 text-white"} `}
+          className={`mt-4 border-y-1 py-2 text-sm font-bold uppercase transition ${!loading ? "cursor-pointer border-blue-500 text-blue-500 hover:rounded-md hover:bg-blue-500 hover:text-white" : "cursor-not-allowed rounded-md border-gray-400 bg-gray-400 text-white"} `}
           disabled={loading}
         >
           {loading ? "Logging in..." : "Login"}
