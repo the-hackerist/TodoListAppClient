@@ -59,16 +59,17 @@ function Register() {
 
       const result = await user.json();
 
-      setLoading(false);
-
       if (!result.isSuccess) {
         setError({ message: result.message, errors: result.errors });
+        setLoading(false);
+
         return;
       }
 
       toast.success(result.message, { ...toastOptions, autoClose: 5000 });
 
       navigate("/auth/login");
+      setLoading(false);
     } catch (error) {
       console.log(error);
       throw error;
@@ -156,7 +157,7 @@ function Register() {
           />
         </div>
         <button
-          className={`mt-4 py-2 text-sm font-bold uppercase transition ${!loading ? "cursor-pointer border-y-1 border-blue-500 text-blue-500 hover:rounded-md hover:bg-blue-500 hover:text-white" : "cursor-not-allowed rounded-md bg-gray-500 text-white"}`}
+          className={`mt-4 border-y-1 py-2 text-sm font-bold uppercase transition ${!loading ? "cursor-pointer border-blue-500 text-blue-500 hover:rounded-md hover:bg-blue-500 hover:text-white" : "cursor-not-allowed rounded-md border-gray-400 bg-gray-400 text-white"} `}
           disabled={loading}
         >
           {loading ? "Registering..." : "Register"}
